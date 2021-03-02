@@ -1,11 +1,18 @@
 {
   "compilerOptions": {
     "target": "ESNext",
-    "lib": ["DOM", "DOM.Iterable", "ESNext"],
-    "types": ["vite/client"],
+    "lib": [
+      "DOM",
+      "DOM.Iterable",
+      "ESNext"
+    ],
+    "types": [
+      "vite/client"
+    ],
     "allowJs": false,
     "skipLibCheck": false,
     "esModuleInterop": false,
+    "noImplicitAny": false,
     "allowSyntheticDefaultImports": true,
     "strict": true,
     "forceConsistentCasingInFileNames": true,
@@ -14,7 +21,66 @@
     "resolveJsonModule": true,
     "isolatedModules": true,
     "noEmit": true,
-    "jsx": "react"
-  },
-  "include": ["./src"]
+    "jsx": "react",
+    "baseUrl": ".",
+    "paths": {
+      "api/*": [
+        "src/api/*"
+      ],
+      "layouts/*": [
+        "src/layouts/*"
+      ],
+      "style/*": [
+        "src/style/*"
+      ],
+      "config/*": [
+        "src/config/*"
+      ],
+      "module/*": [
+        "src/module/*"
+      ],
+      "components/*": [
+        "src/components/*"
+      ],
+      "resource/*": [
+        "src/resource/*"
+      ],
+      "common/*": [
+        "src/common/*"
+      ],
+      "enums/*": [
+        "src/enums/*"
+      ],
+      "interface/*": [
+        "src/interface/*"
+      ],
+      "utils/*": [
+        "src/utils/*"
+      ],
+      "routes/*": [
+        "src/routes/*"
+      ],
+      "polyfill/*": [
+        "src/polyfill/*"
+      ],
+      "type": [
+        "src/type/Type.ts"
+      ],
+      "hooks/*": [
+        "src/hooks/*"
+      ],
+      "context/*": [
+        "src/context/*"
+      ],
+      "stores/*": [
+        "src/stores/*"
+      ],
+      "public": [
+        "src/public/*"
+      ]
+    },
+    "include": [
+      "./src"
+    ]
+  }
 }

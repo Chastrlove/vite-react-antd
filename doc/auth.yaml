@@ -1,0 +1,350 @@
+swagger: "2.0"
+info:
+  description: 服务API
+  version: "1.0"
+  title: 前端服务
+  contact:
+    name: NPA-SAAS
+  license:
+    name: License
+    url: "https://www.ruiwingroup.com"
+host: "10.64.200.201:8088"
+basePath: /
+tags:
+  - name: auth
+    description: 认证授权
+paths:
+  /register:
+    post:
+      tags:
+        - auth
+      summary: register
+      operationId: registerUsingPOST
+      consumes:
+        - application/json
+      produces:
+        - application/json
+      parameters:
+        - in: body
+          name: registerVo
+          description: registerVo
+          required: true
+          schema:
+            $ref: "#/definitions/RegisterDto"
+      responses:
+        "200":
+          description: OK
+          schema:
+            type: integer
+            format: int64
+  /register/ext:
+    post:
+      tags:
+        - auth
+      summary: registerExtInfo
+      operationId: registerExtInfoUsingPOST
+      consumes:
+        - application/json
+      produces:
+        - "*/*"
+      parameters:
+        - in: body
+          name: registerExtDto
+          description: registerExtDto
+          required: true
+          schema:
+            $ref: "#/definitions/RegisterExtDto"
+      responses:
+        "200":
+          description: OK
+  /verifyCode:
+    get:
+      tags:
+        - auth
+      summary: 图形验证码
+      operationId: getVerifyCodeUsingGET
+      consumes:
+        - application/json
+      produces:
+        - "*/*"
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: "#/definitions/VerifyCodeVo"
+  /login/pwd:
+    post:
+      tags:
+        - auth
+      summary: 密码登录
+      operationId: loginByPwdUsingPOST
+      consumes:
+        - application/json
+      produces:
+        - application/json
+      parameters:
+        - in: body
+          name: dto
+          description: dto
+          required: true
+          schema:
+            $ref: "#/definitions/PwdLoginDto"
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: "#/definitions/UserDetailVo"
+  /login/mobile:
+    post:
+      tags:
+        - auth
+      summary: 短信登录
+      operationId: loginByMobileUsingPOST
+      consumes:
+        - application/json
+      produces:
+        - application/json
+      parameters:
+        - in: body
+          name: dto
+          description: dto
+          required: true
+          schema:
+            $ref: "#/definitions/LoginDto"
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: "#/definitions/UserDetailVo"
+  /app/login/mobile:
+    post:
+      tags:
+        - auth
+      summary: 短信登录
+      operationId: loginAppByMobileUsingPOST
+      consumes:
+        - application/json
+      produces:
+        - application/json
+      parameters:
+        - in: body
+          name: dto
+          description: dto
+          required: true
+          schema:
+            $ref: "#/definitions/LoginDto"
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: "#/definitions/UserDetailVo"
+  /logout:
+    post:
+      tags:
+        - auth
+      summary: 登出
+      operationId: logoutUsingPOST
+      consumes:
+        - application/json
+      produces:
+        - application/json
+      responses:
+        "200":
+          description: OK
+  /user/detail:
+    get:
+      tags:
+        - auth
+      summary: 用户详情
+      operationId: getUserDetailUsingGET
+      consumes:
+        - application/json
+      produces:
+        - "*/*"
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: "#/definitions/UserDetailVo"
+definitions:
+  LoginDto:
+    type: object
+    properties:
+      mobile:
+        type: string
+        description: 手机号
+      smsVerifyCode:
+        type: string
+        description: 登录验证码
+  PermissionVo:
+    type: object
+    properties:
+      code:
+        type: string
+        description: 权限代码
+      level:
+        type: integer
+        format: int32
+        description: 层级
+      name:
+        type: string
+        description: 权限名称
+      owned:
+        type: boolean
+        example: false
+        description: 是否拥有该权限
+      parentCode:
+        type: string
+        description: 上级权限代码
+      role:
+        type: string
+        description: 当前权限属于哪个角色
+      selected:
+        type: boolean
+        example: false
+        description: 是否拥有该权限
+      seq:
+        type: integer
+        format: int32
+        description: 同一级下展示顺序
+      type:
+        type: integer
+        format: int32
+        description: "权限类型，1菜单，2URL,3请求"
+  UserDetailVo:
+    type: object
+    properties:
+      id:
+        type: integer
+        format: int64
+        description: 用户Id
+      lastLoginTime:
+        type: string
+        format: date-time
+        description: 上次登录时间
+      mobile:
+        type: string
+        description: 手机号
+      permissions:
+        type: array
+        description: 用户菜单权限
+        items:
+          $ref: "#/definitions/PermissionVo"
+      realName:
+        type: string
+        description: 真实姓名
+      username:
+        type: string
+        description: 用户名
+      corpName:
+        type: string
+        description: 所属公司
+      level:
+        type: string
+        description: 用户等级
+      vipExpireTime:
+        type: string
+        format: date-time
+        description: vip过期时间
+  VerifyCodeVo:
+    type: object
+    properties:
+      code:
+        type: string
+        description: 验证码图片BASE64
+      uuid:
+        type: string
+        description: 验证码UUID
+  PwdLoginDto:
+    type: object
+    properties:
+      captchaCode:
+        type: string
+        description: 登录验证码
+      captchaUuid:
+        type: string
+        description: 验证码UUID
+      mobile:
+        type: string
+        description: 手机号
+      password:
+        type: string
+        description: 密码
+  RegisterDto:
+    type: object
+    properties:
+      advantage:
+        type: array
+        description: 优势
+        items:
+          type: string
+      assetPreference:
+        type: array
+        description: 资产偏好
+        items:
+          type: string
+      businessArea:
+        type: array
+        description: 业务区域
+        items:
+          type: string
+      corpName:
+        type: string
+        description: 所属公司
+      mobile:
+        type: string
+        description: 手机号
+      mode:
+        type: array
+        description: 业务模式
+        items:
+          type: string
+      msgCode:
+        type: string
+        description: 短信验证码
+      password:
+        type: string
+        description: 密码
+      realName:
+        type: string
+        description: 名称
+      referrer:
+        type: string
+        description: 推荐人
+      type:
+        type: array
+        description: 类型
+        items:
+          type: string
+  RegisterExtDto:
+    type: object
+    properties:
+      advantage:
+        type: array
+        description: 优势
+        items:
+          type: string
+      assetPreference:
+        type: array
+        description: 资产偏好
+        items:
+          type: string
+      businessArea:
+        type: array
+        description: 业务区域
+        items:
+          type: string
+      mode:
+        type: array
+        description: 业务模式
+        items:
+          type: string
+      type:
+        type: array
+        description: 类型
+        items:
+          type: string
+      userId:
+        type: integer
+        format: int64
+        description: 用户Id

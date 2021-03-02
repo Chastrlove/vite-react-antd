@@ -1,0 +1,20 @@
+// tslint:disable
+{{>licenseInfo}}
+{{#models}}
+{{#model}}
+{{#isEnum}}
+{{>modelEnum}}
+{{/isEnum}}
+{{^isEnum}}
+{{#oneOf}}
+{{#-first}}
+{{>modelOneOf}}
+{{/-first}}
+{{/oneOf}}
+{{^oneOf}}
+{{>modelGeneric}}
+{{>fieldGeneric}}
+{{/oneOf}}
+{{/isEnum}}
+{{/model}}
+{{/models}}
