@@ -3,8 +3,11 @@ import reactRefresh from "@vitejs/plugin-react-refresh";
 import legacy from "@vitejs/plugin-legacy";
 import _ from "lodash";
 import path from "path";
+import svgr from '@svgr/rollup';
+
 const rootPath = path.join(__dirname);
 const tsConfig = require(path.join(rootPath, "tsconfig.json"));
+
 
 // https://vitejs.dev/config/
 export default defineConfig({
@@ -27,6 +30,7 @@ export default defineConfig({
   },
   plugins: [
     reactRefresh(),
+    svgr(),
     legacy({
       //兼容ie11
       targets: ["defaults", "last 2 versions", "not dead"],

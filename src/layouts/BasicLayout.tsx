@@ -13,7 +13,6 @@ interface BasicLayoutViewProps extends RouteComponentProps {
 }
 
 export const BasicLayoutView = (props: BasicLayoutViewProps) => {
-  console.log(props);
   const menuDataRef = useRef<MenuDataItem[]>([]);
 
   const menuDataRender = (menuList: MenuDataItem[]): MenuDataItem[] =>
