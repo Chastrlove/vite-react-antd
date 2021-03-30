@@ -36,7 +36,6 @@ export function useModel<T extends keyof Model<T>, U>(
   ? Model<T>[T]
   : ReturnType<NonNullable<typeof onUpdate>> {
   const updater = usePersistFn(onUpdate);
-  debugger;
 
   const dispatchContext = useContext(GlobalStateContext);
   const [state, setState] = useState(() => {
